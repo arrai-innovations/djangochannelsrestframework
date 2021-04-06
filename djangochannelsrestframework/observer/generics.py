@@ -89,7 +89,7 @@ class ObserverConsumerMixin(metaclass=ObserverAPIConsumerMetaclass):
 
 
 class ObserverModelInstanceMixin(ObserverConsumerMixin, RetrieveModelMixin):
-    @action()
+    @action(atomic=False)
     async def subscribe_instance(self, request_id=None, **kwargs):
         if request_id is None:
             raise ValueError("request_id must have a value set")
@@ -100,7 +100,7 @@ class ObserverModelInstanceMixin(ObserverConsumerMixin, RetrieveModelMixin):
 
         return None, status.HTTP_201_CREATED
 
-    @action()
+    @action(atomic=False)
     async def unsubscribe_instance(self, request_id=None, **kwargs):
         if request_id is None:
             raise ValueError("request_id must have a value set")
